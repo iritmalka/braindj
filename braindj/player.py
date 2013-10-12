@@ -1,5 +1,6 @@
 # import win32com.client
 import subprocess
+import time
 
 class Player(object):
     def start_song(self):
@@ -21,22 +22,19 @@ class MacItunesPlayer(Player):
                     'name of current track as string',
                     'stop', 'quit']
 
-    @classmethod
-    def _run_cmd(cls, cmd):
-        """
-        gets a command to put in osascript -e ...
-        """
-        if cmd not in cls.AVILABE_CMDS:
-            raise ValueError("cmd not available")
+    def __init__(self):
+        self.playing = False
+        self.start_time = 0
 
-        sub = subprocess.Popen("""%s -e 'tell application "iTunes" to %s'""" % (cls.OSASCRIPT_PATH, cmd), 
-                    shell=True, stdin=subprocess.PIPE, 
-                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        return sub
+    def get_currently_song_time(self):
+        """
+        in seconds
+        """
+        return int(time.time() - self.start_time)
 
     def start_song(self):
         self._run_cmd("play")
+        self.start_time = time.time()
 
     def next_song(self):
         self._run_cmd("next track")
@@ -52,6 +50,20 @@ class MacItunesPlayer(Player):
 
     def pause(self):
         self._run_cmd("pause")
+
+    @classmethod
+    def _run_cmd(cls, cmd):
+        """
+        gets a command to put in osascript -e ...
+        """
+        if cmd not in cls.AVILABE_CMDS:
+            raise ValueError("cmd not available")
+
+        sub = subprocess.Popen("""%s -e 'tell application "iTunes" to %s'""" % (cls.OSASCRIPT_PATH, cmd), 
+                    shell=True, stdin=subprocess.PIPE, 
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        return sub
 
 
 class WinItunesPlayer(Player):
