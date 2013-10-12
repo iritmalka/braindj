@@ -32,7 +32,7 @@
 
 		<div class="row">
 			<div class="progress">
-			  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+			  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="20">
 			    <span class="sr-only">60% Complete</span>
 			  </div>
 			</div>
@@ -90,7 +90,7 @@
 					    context: document.body,
 					    success: function(data) {
 					    	var progress_bar = $('.progress-bar');
-					    	progress_bar.width(data["current_likeness"] + "%");
+					    	progress_bar.width(data["current_likeness"]*5 + "%");
 					    	
 					    	progress_bar.removeClass(function (index, css) {
 							    return (css.match (/\bprogress-bar-\S+/g) || []).join(' ');

@@ -7,7 +7,7 @@ import likeness_monitor
 import player
 
 
-SECONDS = 10
+SECONDS = 1
 
 
 class JsonResponse(HttpResponse):
@@ -39,7 +39,7 @@ class LikenessMonitor(object):
 	def mean(self):
 		if len(self.likes) == 0:
 			return 0
-		return float(sum(self.likes)) / len(self.likes)
+		return sum(map(float,self.likes)) / len(self.likes)
 
 	def reset(self):
 		self.likes = SizedDeque(self.seconds)
@@ -59,6 +59,9 @@ class BrainDJ(object):
 		self.player.start_song()
 		self.like_score.update(self.get_likeness_value())
 
+	def set_user_state(self, value):
+		self.like_score.update(value)
+
 	def next_song(self):
 		self.player.next_song()
 		self.like_score.reset()
@@ -68,7 +71,7 @@ class BrainDJ(object):
 			return 0
 		return self.like_score.likes[-1]
 
-	def change_mood(mood):
+	def change_mood(self, mood):
 		self.active_moods[mood] = not self.active_moods[mood]
 
 	def should_change_song(self):
@@ -84,6 +87,7 @@ class BrainDJ(object):
 			if self.thresholds[2] <= state < self.thresholds[3]:
 				return True
 		return False
+
 dj = BrainDJ()
 moods = [False, False, False]
 
@@ -99,6 +103,13 @@ def state(request):
 def set_state(request):
 	mode = request.GET.get('index')
 	dj.change_mood(mode)
+	return JsonResponse({})
+
+def set_user_state(request):
+	value = request.GET.get('value')
+	dj.set_user_state(value)
+	print 'user state', value
+	return JsonResponse({})
 
 def play(request):
 	player.start_song()
