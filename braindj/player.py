@@ -2,68 +2,77 @@
 import subprocess
 
 class Player(object):
-	def start_song(self):
-		pass
-	def next_song(self):
-		pass
-	def get_current_song(self):
-		pass
-	def pause(self):
-		pass
+    def start_song(self):
+        pass
+    def next_song(self):
+        pass
+    def get_current_song(self):
+        pass
+    def pause(self):
+        pass
 
 
 class MacItunesPlayer(Player):
-	ITUNES_SHELL_PATH = './itunes.sh' # '~/bin/itunes.sh'
-	AVILABE_CMDS = ['status', 'play', 'pause', 'next', 'prev', 'mute', 'unmute', 
-					'stop', 'quit', 'vol up', 'vol down']
+    OSASCRIPT_PATH = '/usr/bin/osascript'
+    AVILABE_CMDS = ['play', 'pause', 'next track', 'previous track',
+                    'set mute to true', 'set mute to false', 
+                    'player state as string',
+                    'artist of current track as string',
+                    'name of current track as string',
+                    'stop', 'quit']
 
-	@classmethod
-	def run_cmd(cls, cmd):
-		"""
-		gets a command to put on itunes.sh script
-		"""
-		if cmd not in cls.AVILABE_CMDS:
-			raise ValueError("cmd not available")
+    @classmethod
+    def _run_cmd(cls, cmd):
+        """
+        gets a command to put in osascript -e ...
+        """
+        if cmd not in cls.AVILABE_CMDS:
+            raise ValueError("cmd not available")
 
-		sub = subprocess.Popen("%s %s" % (cls.ITUNES_SHELL_PATH, cmd), 
-					shell=True, stdin=subprocess.PIPE, 
-					stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        sub = subprocess.Popen("""%s -e 'tell application "iTunes" to %s'""" % (cls.OSASCRIPT_PATH, cmd), 
+                    shell=True, stdin=subprocess.PIPE, 
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-		return sub
+        return sub
 
-	def start_song(self):
-		self.run_cmd("play")
+    def start_song(self):
+        self._run_cmd("play")
 
-	def next_song(self):
-		self.run_cmd("next")
+    def next_song(self):
+        self._run_cmd("next track")
 
-	def get_current_song(self):
-		sub = self.run_cmd("status")
-		return sub.stdout.read()
+    def get_current_song(self):
+        return "%s - %s" % (self.get_artist().strip(), self.get_song_name().strip())
 
-	def pause(self):
-		self.run_cmd("pause")
+    def get_artist(self):
+        return self._run_cmd('artist of current track as string').stdout.read()
+
+    def get_song_name(self):
+        return self._run_cmd('name of current track as string').stdout.read()
+
+    def pause(self):
+        self._run_cmd("pause")
 
 
 class WinItunesPlayer(Player):
-	def __init__(self):
-		import win32com.client
-		self.itunes = win32com.client.Dispatch("iTunes.Application")
+    def __init__(self):
+        import win32com.client
+        self.itunes = win32com.client.Dispatch("iTunes.Application")
 
-	def get_current_song(self):
-		# self.itunes.CurrentTrack. (artists?)
-		return self.itunes.CurrentTrack.Name
+    def get_current_song(self):    
+        # self.itunes.CurrentTrack. (artists?)
+        return self.itunes.CurrentTrack.Name
 
-	def pause(self):
-	    self.itunes.Pause()
+    def pause(self):
+        self.itunes.Pause()
 
-	def start_song(self):
-	    self.itunes.Play()
+    def start_song(self):
+        self.itunes.Play()
 
-	def next_song(self):
-	    self.itunes.Pause()
-	    self.itunes.NextTrack()
+    def next_song(self):
+        self.itunes.Pause()
+        self.itunes.NextTrack()
 
-	def close(self):
-		self.itunes.Quit()
+    def close(self):
+        self.itunes.Quit()
 
