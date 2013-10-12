@@ -1,9 +1,6 @@
 import json
-<<<<<<< HEAD
 from collections import deque
-=======
 import random
->>>>>>> 882b176c8068c9456580aa7e3d15ce004d5af666
 
 from django.http import HttpResponse
 import likeness_monitor
@@ -21,7 +18,6 @@ class JsonResponse(HttpResponse):
             content, content_type='application/json', status=status)
 
 
-<<<<<<< HEAD
 class SizedDeque(deque):
 	def __init__(self, size=SECONDS):
 		self.size = size
@@ -80,9 +76,3 @@ def pause(request):
 
 def get_current_song(request):
     return JsonResponse({'current_song': player.get_current_song()})
-
-=======
-def like(request):
-	likeness = random.randint(0, 100)
-	return JsonResponse({'likeness': likeness})
->>>>>>> 882b176c8068c9456580aa7e3d15ce004d5af666
