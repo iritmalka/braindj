@@ -35,6 +35,7 @@ class BrainDJ(object):
 		while True:
 			self.like_score.update(self.get_likeness_value())
 			time.sleep(1)
+			self.like_score.mean()
 
 	def next_song(self):
 		self.player.next_song()
