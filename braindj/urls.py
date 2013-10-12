@@ -19,6 +19,9 @@ urlpatterns = patterns('',
 	url(r'^next/?$', next),
 	url(r'^pause/?$', pause),
 	url(r'^get_current_song/?$', get_current_song),
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': '/Users/shiriladelsky/braindj/braindj/static',
+        'show_indexes': True}),
     
     # Examples:
     # url(r'^$', 'braindj.views.home', name='home'),
