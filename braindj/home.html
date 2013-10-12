@@ -20,7 +20,7 @@
 				margin: 50px auto;
 				height: 200px;
 				width: 200px;
-				background-image: url(http://placehold.it/200x200);
+				background-image: url(/static/Blow_Off.png);
 			}
 	    </style>
 	</header>
@@ -40,13 +40,13 @@
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-4 button-holder">
-				<button class="mood-button" onclick="set_state(0)'>chill</button>
+				<button class="mood-button" onclick="set_state(0)">chill</button>
 			</div>
 			<div class="col-xs-12 col-sm-4 button-holder">
-				<button class="mood-button">curious</button>
+				<button class="mood-button" onclick="set_state(1)">curious</button>
 			</div>
 			<div class="col-xs-12 col-sm-4 button-holder">
-				<button class="mood-button">suffer</button>
+				<button class="mood-button" onclick="set_state(2)">aweful</button>
 			</div>
 		</div>
 
@@ -69,6 +69,18 @@
 					return "progress-bar-warning";
 				}
 			}
+
+
+			function set_state(mode) {
+
+					$.ajax({
+					    url: "http://localhost:8080/set_state?index=" + mode,
+					    context: document.body,
+					    success: function(data) {
+					    }
+					});
+				};
+
 
 			var ajax_call = function() {
 

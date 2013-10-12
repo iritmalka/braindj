@@ -68,8 +68,8 @@ class BrainDJ(object):
 			return 0
 		return self.like_score.likes[-1]
 
-	def change_mood(moods):
-		self.active_moods = moods
+	def change_mood(mood):
+		self.active_moods[mood] = not self.active_moods[mood]
 
 	def should_change_song(self):
 		state = self.like_score.mean()
@@ -89,23 +89,16 @@ moods = [False, False, False]
 
 
 def current_likeness(request):
+	if dj.should_change_song():
+		dj.next_song()
 	return JsonResponse({'current_likeness': dj.current_likeness()})
 
 def state(request):
 	pass
 
 def set_state(request):
-	mode = request.POST.get('index')
-	print '++++++'
-	return JsonResponse({'state':'ok'})
-	if mode == '0':
-		print '+++++++++', mode
-		pass	
-	elif mode == 1:
-		pass
-	elif mode == 2:
-		pass
-
+	mode = request.GET.get('index')
+	dj.change_mood(mode)
 
 def play(request):
 	player.start_song()
