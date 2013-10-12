@@ -65,6 +65,9 @@ dj = BrainDJ()
 def state(request):
 	return JsonResponse({'state': dj.like_score.mean()})
 
+def set_state(request):
+	pass
+
 def play(request):
     player.start_song()
 
