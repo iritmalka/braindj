@@ -12,10 +12,10 @@ SECONDS = 10
 
 class JsonResponse(HttpResponse):
 
-    def __init__(self, data, status=200):
-        content = json.dumps(data, separators=(',', ':'))
-        super(JsonResponse, self).__init__(
-            content, content_type='application/json', status=status)
+	def __init__(self, data, status=200):
+		content = json.dumps(data, separators=(',', ':'))
+		super(JsonResponse, self).__init__(
+			content, content_type='application/json', status=status)
 
 
 class SizedDeque(deque):
@@ -67,15 +67,16 @@ def state(request):
 
 def set_state(request):
 	pass
+	#from = request.POST.get('from')
 
 def play(request):
-    player.start_song()
+	player.start_song()
 
 def next(request):
-    player.next_song()
+	player.next_song()
 
 def pause(request):
-    player.pause()
+	player.pause()
 
 def get_current_song(request):
-    return JsonResponse({'current_song': player.get_current_song()})
+	return JsonResponse({'current_song': player.get_current_song()})
