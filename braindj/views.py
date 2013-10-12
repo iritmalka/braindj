@@ -12,10 +12,10 @@ SECONDS = 10
 
 class JsonResponse(HttpResponse):
 
-    def __init__(self, data, status=200):
-        content = json.dumps(data, separators=(',', ':'))
-        super(JsonResponse, self).__init__(
-            content, content_type='application/json', status=status)
+	def __init__(self, data, status=200):
+		content = json.dumps(data, separators=(',', ':'))
+		super(JsonResponse, self).__init__(
+			content, content_type='application/json', status=status)
 
 
 class SizedDeque(deque):
@@ -85,6 +85,8 @@ class BrainDJ(object):
 				return True
 		return False
 dj = BrainDJ()
+moods = [False, False, False]
+
 
 def current_likeness(request):
 	return JsonResponse({'current_likeness': dj.current_likeness()})
@@ -93,16 +95,23 @@ def state(request):
 	pass
 
 def set_state(request):
-	pass
+	from = request.POST.get('mode')
+	if mode == 0:
+		pass	
+	elif mode == 1:
+		pass
+	elif mode == 2:
+		pass
+
 
 def play(request):
-    player.start_song()
+	player.start_song()
 
 def next(request):
-    player.next_song()
+	player.next_song()
 
 def pause(request):
-    player.pause()
+	player.pause()
 
 def get_current_song(request):
-    return JsonResponse({'current_song': player.get_current_song()})
+	return JsonResponse({'current_song': player.get_current_song()})
