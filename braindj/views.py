@@ -52,6 +52,8 @@ class BrainDJ(object):
 	def __init__(self):
 		self.player = player.MacItunesPlayer()
 		self.like_score = LikenessMonitor(SECONDS)
+		self.active_moods = [True, True, False]
+		self.thresholds = (0, 4, 8, 10)
 
 	def start(self):
 		self.player.start_song()
@@ -66,7 +68,22 @@ class BrainDJ(object):
 			return 0
 		return self.like_score.likes[-1]
 
+	def change_mood(moods):
+		self.active_moods = moods
 
+	def should_change_song(self):
+		state = self.like_score.mean()
+
+		if not self.active_moods[0]:
+			if self.thresholds[0] <= state < self.thresholds[1]:
+				return True
+		if not self.active_moods[1]:
+			if self.thresholds[1] <= state < self.thresholds[2]:
+				return True
+		if not self.active_moods[2]:
+			if self.thresholds[2] <= state < self.thresholds[3]:
+				return True
+		return False
 dj = BrainDJ()
 
 def current_likeness(request):
