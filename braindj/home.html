@@ -4,12 +4,16 @@
 	    <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 	    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	    <style type="text/css">
+	    	body {
+	    		background: #E0EDEE;
+	    	}
 	    	.row {
 	    		text-align: center;
 	    	}
 
 		    .progress {
-				margin: 30px 40px;
+				margin: 20px auto auto auto;
+				width: 1150px;
 			}
 
 			.mood-button {
@@ -23,7 +27,7 @@
 	<body>
 		<div class="row">
 			<h2>Blur - Song #2</h2>
-			<h4><b>Tollerance threshold:</b> 10 seconds</h4>
+			<h4><b>Tolerance threshold:</b> 10 seconds</h4>
 		</div>
 
 		<div class="row">
@@ -46,6 +50,10 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<img src="http://placehold.it/1150x150">
+		</div>
+
 
 		<script type="text/javascript">
 			var chill = 33;
@@ -64,13 +72,13 @@
 
 			var ajax_call = function() {
 
+
 					$.ajax({
-					    url: "http://localhost:8080/like",
+					    url: "http://localhost:8080/current_likeness",
 					    context: document.body,
 					    success: function(data) {
-					    	$('#data').html("boo-ya #" + data["likeness"])
 					    	var progress_bar = $('.progress-bar');
-					    	progress_bar.width(data["likeness"] + "%");
+					    	progress_bar.width(data["current_likeness"] + "%");
 					    	
 					    	progress_bar.removeClass(function (index, css) {
 							    return (css.match (/\bprogress-bar-\S+/g) || []).join(' ');
@@ -82,9 +90,8 @@
 
 			var interval = 1000; // every second
 
-	setInterval(ajax_call, interval);
-
-</script>
-</body>
+			setInterval(ajax_call, interval);
+		</script>
+	</body>
 </html>
 
