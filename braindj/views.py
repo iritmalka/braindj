@@ -68,6 +68,8 @@ class BrainDJ(object):
 
 
 dj = BrainDJ()
+moods = [False, False, False]
+
 
 def current_likeness(request):
 	return JsonResponse({'current_likeness': dj.current_likeness()})
@@ -76,8 +78,14 @@ def state(request):
 	pass
 
 def set_state(request):
-	pass
-	#from = request.POST.get('from')
+	from = request.POST.get('mode')
+	if mode == 0:
+		pass	
+	elif mode == 1:
+		pass
+	elif mode == 2:
+		pass
+
 
 def play(request):
 	player.start_song()
