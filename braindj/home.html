@@ -48,10 +48,10 @@ Your Brain is a DJ
 
 
 			$.ajax({
-			    url: "http://localhost:8080/like",
+			    url: "http://localhost:8080/state",
 			    context: document.body,
 			    success: function(data) {
-			    	$('#data').html("boo-ya #" + i + " " + data["likeness"])
+			    	$('#data').html("boo-ya #" + i + " " + data["state"])
 			    	$('.progress-bar').width(i + "%");
 			    }
 			});
@@ -62,6 +62,7 @@ Your Brain is a DJ
 	var interval = 1000; // every second
 
 	setInterval(ajax_call, interval);
+
 </script>
 </body>
 </html>

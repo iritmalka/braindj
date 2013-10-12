@@ -6,13 +6,17 @@ from django.conf.urls import patterns, include, url
 
 from django.views.generic import TemplateView
 
-from braindj.views import like
+from braindj.views import state, play, next, get_current_song, pause
 
 urlpatterns = patterns('',
 
     (r'^$', TemplateView.as_view(template_name='home.html')),
-	url(r'^like/?$', like),
-
+	url(r'^state/?$', state),
+	url(r'^play/?$', play),
+	url(r'^next/?$', next),
+	url(r'^pause/?$', pause),
+	url(r'^get_current_song/?$', get_current_song),
+    
     # Examples:
     # url(r'^$', 'braindj.views.home', name='home'),
     # url(r'^braindj/', include('braindj.foo.urls')),
