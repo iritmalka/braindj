@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 
 from django.views.generic import TemplateView
 
-from braindj.views import state, play, next, get_current_song, pause, set_state, current_likeness, set_user_state
+from braindj.views import state, play, next, get_current_song, pause, set_state, current_likeness, set_user_state, start
 
 urlpatterns = patterns('',
 
@@ -16,11 +16,14 @@ urlpatterns = patterns('',
 	url(r'^set_state/?$', set_state),
 	url(r'^set_user_state/?$', set_user_state),
 	url(r'^play/?$', play),
+	url(r'^start/?$', start),
 	url(r'^next/?$', next),
 	url(r'^pause/?$', pause),
 	url(r'^get_current_song/?$', get_current_song),
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': '/Users/shiriladelsky/braindj/braindj/static',
+        {'document_root':  '/Users/iritmalka/Documents/braindj/braindj/static',
+
+
         'show_indexes': True}),
     
     # Examples:

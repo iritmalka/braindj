@@ -51,7 +51,7 @@
 	<body>
 		<div class="row">
 			<h2>Blur - Song #2</h2>
-			<h4><b>Tolerance threshold:</b> 10 seconds</h4>
+			<h4><b>Tolerance threshold:</b> 1 second</h4>
 		</div>
 
 		<div class="row">
@@ -75,7 +75,7 @@
 		</div>
 
 		<div class="row">
-			<button id="play-button" onclick="set_state(2)"></button>
+			<button id="play-button" onclick="start()"></button>
 		</div>
 
 
@@ -83,6 +83,16 @@
 			var chill = 33;
 			var curious = 67;
 			var suffer = 100
+			
+			function start(){
+					$.ajax({
+					    url: "http://localhost:8080/start",
+					    context: document.body,
+					    success: function(data) {
+					    }
+					});
+				};
+
 
 			function progress_color(likeness) {
 				if (likeness <= chill) {
