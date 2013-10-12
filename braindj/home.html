@@ -20,7 +20,31 @@
 				margin: 50px auto;
 				height: 200px;
 				width: 200px;
-				background-image: url(/static/Blow_Off.png);
+				background: transparent;
+				background-size: 200px 200px;
+				border: none;
+			}
+
+			#chill {
+				background-image: url(/static/images/Peace_On.png);
+			}
+
+			#chill:active {
+				background-image: url(/static/images/Peace_Off.png);	
+			}
+
+			#curious {
+				background-image: url(/static/images/Bulb_On.png);
+			}
+
+			#aweful {
+				background-image: url(/static/images/Blow_Off.png);
+			}
+
+			#play-button {
+				height: 140.5px;
+				width: 764px;
+				background-image: url(/static/images/Play_Off.png);	
 			}
 	    </style>
 	</header>
@@ -40,18 +64,18 @@
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-4 button-holder">
-				<button class="mood-button" onclick="set_state(0)">chill</button>
+				<button id="chill" class="mood-button" onclick="set_state(0)"></button>
 			</div>
 			<div class="col-xs-12 col-sm-4 button-holder">
-				<button class="mood-button" onclick="set_state(1)">curious</button>
+				<button id="curious" class="mood-button" onclick="set_state(1)"></button>
 			</div>
 			<div class="col-xs-12 col-sm-4 button-holder">
-				<button class="mood-button" onclick="set_state(2)">aweful</button>
+				<button id="aweful" class="mood-button" onclick="set_state(2)"></button>
 			</div>
 		</div>
 
 		<div class="row">
-			<img src="http://placehold.it/1150x150">
+			<button id="play-button" onclick="set_state(2)"></button>
 		</div>
 
 
