@@ -61,11 +61,19 @@ class BrainDJ(object):
 		self.player.next_song()
 		self.like_score.reset()
 
+	def current_likeness(self):
+		if len(self.like_score.likes) == 0:
+			return 0
+		return self.like_score.likes[-1]
+
 
 dj = BrainDJ()
 
+def current_likeness(request):
+	return JsonResponse({'current_likeness': dj.current_likeness()})
+
 def state(request):
-	return JsonResponse({'state': dj.like_score.mean()})
+	pass
 
 def set_state(request):
 	pass

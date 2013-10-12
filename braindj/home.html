@@ -74,11 +74,11 @@
 
 
 					$.ajax({
-					    url: "http://localhost:8080/state",
+					    url: "http://localhost:8080/current_likeness",
 					    context: document.body,
 					    success: function(data) {
 					    	var progress_bar = $('.progress-bar');
-					    	progress_bar.width(data["likeness"] + "%");
+					    	progress_bar.width(data["current_likeness"] + "%");
 					    	
 					    	progress_bar.removeClass(function (index, css) {
 							    return (css.match (/\bprogress-bar-\S+/g) || []).join(' ');
