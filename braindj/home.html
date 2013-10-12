@@ -44,7 +44,7 @@
 			}
 
 			.play-on {
-				background-image: url(/static/images/Play_On.png);	
+				background-image: url(/static/images/Play_On.png)!important;	
 			}
 
 			.aweful-on {
@@ -87,7 +87,7 @@
 		</div>
 
 		<div class="row">
-			<button id="play-button" onclick="set_state(2)"></button>
+			<button id="play-button" onclick="set_play()"></button>
 		</div>
 
 
@@ -108,6 +108,10 @@
 				$('#' + name).toggleClass(name+"-on");
 			}
 
+			function toggle_play() {
+				$('#play-button').toggleClass("play-on");
+			}
+
 			function progress_color(likeness) {
 				if (likeness <= chill) {
 					return "progress-bar-success";
@@ -124,6 +128,17 @@
 
 					$.ajax({
 					    url: "http://localhost:8080/set_state?index=" + mode,
+					    context: document.body,
+					    success: function(data) {
+					    }
+					});
+				};
+
+			function set_play() {
+					toggle_play();
+
+					$.ajax({
+					    url: "http://localhost:8080/set_play",
 					    context: document.body,
 					    success: function(data) {
 					    }
