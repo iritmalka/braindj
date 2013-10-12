@@ -95,8 +95,11 @@ def state(request):
 	pass
 
 def set_state(request):
-	from = request.POST.get('mode')
-	if mode == 0:
+	mode = request.POST.get('index')
+	print '++++++'
+	return JsonResponse({'state':'ok'})
+	if mode == '0':
+		print '+++++++++', mode
 		pass	
 	elif mode == 1:
 		pass
