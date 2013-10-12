@@ -37,6 +37,8 @@ class LikenessMonitor(object):
 		self.likes.append(num)
 
 	def mean(self):
+		if len(self.likes) == 0:
+			return 0
 		return float(sum(self.likes)) / len(self.likes)
 
 	def reset(self):

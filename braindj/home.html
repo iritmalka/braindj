@@ -72,11 +72,11 @@
 
 			var ajax_call = function() {
 
+
 					$.ajax({
-					    url: "http://localhost:8080/like",
+					    url: "http://localhost:8080/state",
 					    context: document.body,
 					    success: function(data) {
-					    	$('#data').html("boo-ya #" + data["likeness"])
 					    	var progress_bar = $('.progress-bar');
 					    	progress_bar.width(data["likeness"] + "%");
 					    	
@@ -90,9 +90,8 @@
 
 			var interval = 1000; // every second
 
-	setInterval(ajax_call, interval);
-
-</script>
-</body>
+			setInterval(ajax_call, interval);
+		</script>
+	</body>
 </html>
 
