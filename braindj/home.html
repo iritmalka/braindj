@@ -26,15 +26,11 @@
 			}
 
 			#chill {
-				background-image: url(/static/images/Peace_On.png);
-			}
-
-			#chill:active {
-				background-image: url(/static/images/Peace_Off.png);	
+				background-image: url(/static/images/Peace_Off.png);
 			}
 
 			#curious {
-				background-image: url(/static/images/Bulb_On.png);
+				background-image: url(/static/images/Bulb_Off.png);
 			}
 
 			#aweful {
@@ -45,6 +41,22 @@
 				height: 140.5px;
 				width: 764px;
 				background-image: url(/static/images/Play_Off.png);	
+			}
+
+			.play-on {
+				background-image: url(/static/images/Play_On.png);	
+			}
+
+			.aweful-on {
+				background-image: url(/static/images/Blow_On.png)!important;
+			}
+
+			.curious-on {
+				background-image: url(/static/images/Bulb_On.png)!important;
+			}
+
+			.chill-on {
+				background-image: url(/static/images/Peace_On.png)!important;
 			}
 	    </style>
 	</header>
@@ -64,10 +76,10 @@
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-4 button-holder">
-				<button id="chill" class="mood-button" onclick="set_state(0)"></button>
+				<button id="chill" class="mood-button chill-on" onclick="set_state(0)"></button>
 			</div>
 			<div class="col-xs-12 col-sm-4 button-holder">
-				<button id="curious" class="mood-button" onclick="set_state(1)"></button>
+				<button id="curious" class="mood-button curious-on" onclick="set_state(1)"></button>
 			</div>
 			<div class="col-xs-12 col-sm-4 button-holder">
 				<button id="aweful" class="mood-button" onclick="set_state(2)"></button>
@@ -84,6 +96,18 @@
 			var curious = 67;
 			var suffer = 100
 
+			function toggle_pic(id) {
+				if (id == "0") {
+					name = "chill";
+				} else if (id == "1") {
+					name = "curious";
+				} else {
+					name = "aweful";
+				}
+
+				$('#' + name).toggleClass(name+"-on");
+			}
+
 			function progress_color(likeness) {
 				if (likeness <= chill) {
 					return "progress-bar-success";
@@ -96,6 +120,7 @@
 
 
 			function set_state(mode) {
+					toggle_pic(mode);
 
 					$.ajax({
 					    url: "http://localhost:8080/set_state?index=" + mode,
