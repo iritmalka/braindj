@@ -1,4 +1,5 @@
 import json
+import random
 
 from django.http import HttpResponse
 
@@ -12,4 +13,5 @@ class JsonResponse(HttpResponse):
 
 
 def like(request):
-	return JsonResponse({'likeness': 1})
+	likeness = random.randint(0, 100)
+	return JsonResponse({'likeness': likeness})
